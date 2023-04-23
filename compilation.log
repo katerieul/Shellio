@@ -1,0 +1,15 @@
+test -d obj || mkdir obj
+test -d bin || mkdir bin
+cc -Iinclude -c src/utils.c -o obj/utils.o
+cc -Iinclude -c src/mshell.c -o obj/mshell.o
+cc -Iinclude -c src/builtins.c -o obj/builtins.o
+make -C input_parse INSTALL_DIR=/home/dude/SO/shell/so-shell-katerieul/shell/obj INC_DIR=/home/dude/SO/shell/so-shell-katerieul/shell/include
+make[1]: Entering directory '/home/dude/SO/shell/so-shell-katerieul/shell/input_parse'
+byacc -d siparse.y
+byacc: 3 reduce/reduce conflicts.
+cc -I/home/dude/SO/shell/so-shell-katerieul/shell/include y.tab.c -c 
+lex  siparse.lex
+cc -I/home/dude/SO/shell/so-shell-katerieul/shell/include lex.yy.c -c 
+ar rcs /home/dude/SO/shell/so-shell-katerieul/shell/obj/siparse.a siparseutils.o lex.yy.o y.tab.o 
+make[1]: Leaving directory '/home/dude/SO/shell/so-shell-katerieul/shell/input_parse'
+cc -Iinclude obj/utils.o obj/mshell.o obj/builtins.o obj/siparse.a -o bin/mshell 
